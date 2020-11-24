@@ -24,17 +24,18 @@ exports.run = async (client, message, args) => {
     );
   }
   let index = channelsCreated.indexOf(channelIn);
-  await message.channel
-    .send(
-      "You have been invited to a thread!" +
-        "`" +
-        message.author.tag +
-        "`\n`React` to this message to join!\n These channels are also moderated!"
+  const embed = new Discord.MessageEmbed()
+    .setAuthor(`🧵 Invite to the "${channelToInviteUserTo.name}" thread`)
+    .setDescription(
+      `Accept the invite and join the "${channelToInviteUserTo.name}" thread by reacting to this message!`
     )
-    .then((msg) => {
-      msg.react("✔️");
-      channelIn.id.push(msg.id);
-    });
+    .setFooter("| Dev Launchers Threads", message.guild.iconURL())
+    .setColor(0xff9f01);
+
+  await message.channel.send(embed).then((msg) => {
+    msg.react("✔️");
+    channelIn.id.push(msg.id);
+  });
   channelsCreated.splice(index, 1, channelIn);
   db.set(`instanced.${message.guild.id}`, channelsCreated);
 };

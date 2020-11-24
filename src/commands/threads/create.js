@@ -98,13 +98,15 @@ exports.run = async (client, message, args) => {
   //701268417096712203
   //736715831962107924
   function createEmbed(message, args, channel, role, channelForMod) {
-    message.channel
-      .send(
-        "A thread has been created by " +
-          "`" +
-          message.author.tag +
-          "`\n`React` to this message to join the thread.\n These channels are also moderated!"
+    const embed = new Discord.MessageEmbed()
+      .setTitle(`🧵 ${channel.name}`)
+      .setDescription(
+        `Join the "${channel.name}" thread by reacting to this message`
       )
+      .setFooter("| Dev Launchers Threads", message.guild.iconURL())
+      .setColor(0xff9f01);
+    message.channel
+      .send(embed)
       .then((msg) =>
         storeChannel(message, msg, args, channel, role, channelForMod)
       );
