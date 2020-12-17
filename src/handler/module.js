@@ -85,7 +85,7 @@ module.exports = (client) => {
           let prop = require(`../extensions/${extension.name}/controllers/commands/${file}`);
           let cmdName = file.split(".")[0];
 
-          client.commands.set(prop.help.name, prop);
+          client.commands.set(prop.help.name.toLowerCase(), prop);
 
           prop.conf.aliases.forEach((alias) => {
             client.aliases.set(alias, prop.help.name);
