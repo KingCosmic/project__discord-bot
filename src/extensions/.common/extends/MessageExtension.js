@@ -10,6 +10,10 @@ Structures.extend("Message", (Message) => {
     getTargets() {}
 
     getArgs() {}
+
+    removeReaction(reactions, user, emoji) {
+      console.log(reactions);
+    }
   }
 
   return MessageExtension;

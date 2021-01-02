@@ -33,10 +33,10 @@ async function removeEmoji(messageReaction, user) {
 
 module.exports = async (client, messageReaction, user) => {
   metrics.sendEvent("message_reaction_add");
-  if (messageReaction.emoji.name === "DevBean") {
+  /*if (messageReaction.emoji.name === "DevBean") {
     let message = await fetchMessage(client, messageReaction, user);
     return awardDevBean(client, message, user);
-  }
+  }*/
   if (messageReaction.emoji.name === "GoldenBean") {
     let message = await fetchMessage(client, messageReaction, user);
     return awardGoldenBean(client, message, user);
