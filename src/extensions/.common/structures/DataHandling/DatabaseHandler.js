@@ -1,9 +1,11 @@
 const quickDB = require("quick.db");
+const ReactionRole = require("../../../ReactionRoles/structures/ReactionRole.js");
 
 class DatabaseHandler {
   constructor() {
     this.bean = new BeanHandler();
     this.reminder = new ReminderHandler();
+    this.reactionRoles = new ReactionRolesHandler();
   }
 }
 
@@ -79,4 +81,26 @@ class ReminderHandler {
   }
 }
 
+class ReactionRolesHandler {
+  constructor() {}
+
+  getReactionRoles(guildId) {
+    return quickDB.get(`reactionRoles.${guildId}`);
+  }
+
+  async addReactionRole(client, guildId, channelId, messageId, reactionRole) {
+    let allReactionRoles = this.getReactionRoles(guildId);
+    if (!allReactionRoles) allReactionRoles = [];
+
+    allReactionRoles.push({
+      guildId: guildId,
+      channelId: channelId,
+      messageId: messageId,
+      reactionRoles: reactionRole,
+    });
+    new ReactionRole(client, guildId, channelId, messageId, reactionRole);
+
+    quickDB.set(`reactionRoles.${guildId}`, allReactionRoles);
+  }
+}
 module.exports = new DatabaseHandler();
